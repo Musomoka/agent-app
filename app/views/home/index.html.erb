@@ -1,2 +1,32 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-lg">
+  <h1 class="text-4xl font-bold mb-4">Welcome to Agent App</h1>
+  <p class="text-xl mb-6">THE WORLD THAT DOESN'T WORK - Now with Tailwind CSS!</p>
+  <div class="flex gap-4">
+    <button class="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+      Get Started
+    </button>
+    <button class="border border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+      Learn More
+    </button>
+  </div>
+</div>
+
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="bg-white p-6 rounded-lg shadow-md border">
+    <h3 class="text-xl font-bold text-gray-800 mb-3">Tours</h3>
+    <p class="text-gray-600">Discover amazing tours and experiences.</p>
+    <%= link_to "View Tours", tours_path, class: "inline-block mt-4 text-blue-600 font-semibold hover:text-blue-800" %>
+  </div>
+  
+  <div class="bg-white p-6 rounded-lg shadow-md border">
+    <h3 class="text-xl font-bold text-gray-800 mb-3">Agents</h3>
+    <p class="text-gray-600">Connect with professional travel agents.</p>
+    <%= link_to "View Agents", agents_path, class: "inline-block mt-4 text-blue-600 font-semibold hover:text-blue-800" %>
+  </div>
+  
+  <div class="bg-white p-6 rounded-lg shadow-md border">
+    <h3 class="text-xl font-bold text-gray-800 mb-3">Promotions</h3>
+    <p class="text-gray-600">Check out our latest offers and deals.</p>
+    <%= link_to "View Promotions", promotions_path, class: "inline-block mt-4 text-blue-600 font-semibold hover:text-blue-800" %>
+  </div>
+</div>

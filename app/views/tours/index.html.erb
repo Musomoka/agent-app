@@ -1,31 +1,85 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-gray-50 min-h-screen py-8">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-800 mb-2">Tours</h1>
+          <p class="text-gray-600">Explore amazing destinations and experiences</p>
+        </div>
+        <%= link_to 'New Tour', new_tour_path, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg" %>
+      </div>
+    </div>
 
-<h1>Listing Tours</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Activites</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tours.each do |tour| %>
-      <tr>
-        <td><%= tour.name %></td>
-        <td><%= tour.description %></td>
-        <td><%= tour.activites %></td>
-        <td><%= link_to 'Show', tour %></td>
-        <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
-        <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if notice %>
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+        <%= notice %>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <!-- Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% @tours.each do |tour| %>
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+          <!-- Image/Icon Section -->
+          <div class="h-48 bg-gradient-to-br from-green-500 to-teal-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-map-marked-alt text-white text-6xl"></i>
+            </div>
+            <div class="absolute top-4 right-4">
+              <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                Tour
+              </span>
+            </div>
+          </div>
+          
+          <!-- Content Section -->
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2"><%= tour.name %></h3>
+            <p class="text-gray-600 mb-4 line-clamp-3"><%= tour.description %></p>
+            
+            <!-- Activities Info -->
+            <div class="mb-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <i class="fas fa-list text-green-500"></i>
+                <span class="text-sm font-semibold text-gray-700">Activities:</span>
+              </div>
+              <div class="text-sm text-gray-600">
+                <% if tour.activites.present? %>
+                  <% tour.activites.split("\n").first(3).each do |activity| %>
+                    <span class="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs mr-1 mb-1">
+                      <%= activity.strip %>
+                    </span>
+                  <% end %>
+                  <% if tour.activites.split("\n").length > 3 %>
+                    <span class="text-green-600 text-xs">+<%= tour.activites.split("\n").length - 3 %> more</span>
+                  <% end %>
+                <% else %>
+                  <span class="text-gray-400">No activities listed</span>
+                <% end %>
+              </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex space-x-2">
+              <%= link_to 'View Details', tour, class: "flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors" %>
+              <%= link_to 'Edit', edit_tour_path(tour), class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-semibold transition-colors" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @tours.empty? %>
+        <!-- Empty State -->
+        <div class="col-span-full flex flex-col items-center justify-center py-16">
+          <i class="fas fa-map-marked-alt text-gray-300 text-6xl mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-600 mb-2">No tours available</h3>
+          <p class="text-gray-500 mb-6">Start by creating your first tour package</p>
+          <%= link_to 'Create First Tour', new_tour_path, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'New Tour', new_tour_path %>

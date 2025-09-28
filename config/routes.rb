@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :promotions
   resources :agents
   resources :tours
+  get 'home/sample'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

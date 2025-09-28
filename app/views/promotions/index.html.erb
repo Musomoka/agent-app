@@ -1,0 +1,77 @@
+<div class="bg-gray-50 min-h-screen py-8">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-800 mb-2">Promotions</h1>
+          <p class="text-gray-600">Discover amazing deals and special offers</p>
+        </div>
+        <%= link_to "New Promotion", new_promotion_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg" %>
+      </div>
+    </div>
+
+    <% if notice %>
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <!-- Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% @promotions.each do |promotion| %>
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+          <!-- Image/Icon Section -->
+          <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-tags text-white text-6xl"></i>
+            </div>
+            <div class="absolute top-4 right-4 flex space-x-2">
+              <% if promotion.active %>
+                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  Active
+                </span>
+              <% else %>
+                <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  Inactive
+                </span>
+              <% end %>
+            </div>
+          </div>
+          
+          <!-- Content Section -->
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2"><%= promotion.name %></h3>
+            <p class="text-gray-600 mb-4 line-clamp-3"><%= promotion.description %></p>
+            
+            <!-- Status Info -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-2">
+                <i class="fas fa-info-circle text-blue-500"></i>
+                <span class="text-sm text-gray-700">
+                  Status: <%= promotion.active? ? "Active" : "Inactive" %>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex space-x-2">
+              <%= link_to "View Details", promotion, class: "flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors" %>
+              <%= link_to "Edit", edit_promotion_path(promotion), class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-semibold transition-colors" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @promotions.empty? %>
+        <!-- Empty State -->
+        <div class="col-span-full flex flex-col items-center justify-center py-16">
+          <i class="fas fa-tags text-gray-300 text-6xl mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-600 mb-2">No promotions yet</h3>
+          <p class="text-gray-500 mb-6">Get started by creating your first promotion</p>
+          <%= link_to "Create First Promotion", new_promotion_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
